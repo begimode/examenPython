@@ -20,18 +20,18 @@ def read_data(filename):
             # Creamos un diccionario con los datos de la línea
             objeto = {
                 'type': linea[0],
-                'fixed acidity': linea[1],
-                'volatile acidity': linea[2],
-                'citric acid': linea[3],
-                'residual sugar': linea[4],
-                'chlorides': linea[5],
-                'free sulfur dioxide': linea[6],
-                'total sulfur dioxide': linea[7],
-                'density': linea[8],
-                'PH': linea[9],
-                'sulphates': linea[10],
-                'alcohol': linea[11],
-                'quality': linea[12]
+                'fixed acidity': int(linea[1]),
+                'volatile acidity': int(linea[2]),
+                'citric acid': int(linea[3]),
+                'residual sugar': int(linea[4]),
+                'chlorides': int(linea[5]),
+                'free sulfur dioxide': int(linea[6]),
+                'total sulfur dioxide': int(linea[7]),
+                'density': int(linea[8]),
+                'PH': int(linea[9]),
+                'sulphates': int(linea[10]),
+                'alcohol': int(linea[11]),
+                'quality': int(linea[12])
             }
             objetos[f'dato{i}'] = objeto
             i += 1
@@ -56,10 +56,11 @@ def split (diccionario):
     i=0
     # Ahora recorremos un for para poner los datos en los diccionarios
     for atributo in  diccionario.items():
-        tipo = atributo.pop('type', None)
-        if tipo == "white":
+        if atributo['type'] == "white":
+            del atributo['type']
             diccionariowhite[i] == atributo
-        elif tipo == "red":
+        elif atributo['type']  == "red":
+            del atributo['type']
             diccionariored[i] == atributo
         i += 1
     return diccionariored, diccionariowhite
@@ -82,4 +83,10 @@ def reduce(diccionario, atributo):
             raise ValueError(f"El atributo '{atributo}' no existe en el diccionario")
     return valores
 
+
+def silhouette(self):
+    """ Crea una funcion silhouette que recibe dos listas como la que devuelve 
+    el ejercicio anterior y devuelve el coeficiente de Silhouette de la primera de 
+    las listas. Este coeficiente se calcula siguiendo la formula Silhouette(lista) = media (S(i)),
+    donde S(i) es un coeficiente para cada uno de los datos i de la lista y que se calcula con la formula..."""
 

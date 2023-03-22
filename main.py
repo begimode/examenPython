@@ -10,6 +10,6 @@ def test():
         # print(reduce(diccionarios[1], atributo))
 
     except ValueError as err:
-        print("Ha ocurrido la excepcion " + err)
+        print("Ha ocurrido la excepcion {}".format(err))
 
 test()
