@@ -1,4 +1,5 @@
 import csv
+import math
 
 def read_data(filename):
     """ Lee el fichero csv y devuelve un diccionario con el formato que aparece a continuacion (un objeto).
@@ -84,9 +85,29 @@ def reduce(diccionario, atributo):
     return valores
 
 
-def silhouette(self):
+def silhouette(self, diccionario1, diccionario2):
     """ Crea una funcion silhouette que recibe dos listas como la que devuelve 
     el ejercicio anterior y devuelve el coeficiente de Silhouette de la primera de 
     las listas. Este coeficiente se calcula siguiendo la formula Silhouette(lista) = media (S(i)),
     donde S(i) es un coeficiente para cada uno de los datos i de la lista y que se calcula con la formula..."""
 
+# calcular la distancia media entre i y todos los valores de la otra lista, calculada de la misma manera
+
+    coefsil = 0
+    longitud1 = len(diccionario1)
+    longitud1 = len(diccionario2)
+    i1, i2=0
+
+    # Empezamos por sacando el valor de a(i)
+    for j in range(longitud1):
+        if i1 != j:
+            distancia = math.sqrt(abs(math.pow(i1-j)))
+            sumadist1 += distancia
+
+    a = sumadist1 / (longitud1-1)
+
+    # Ahora calculamos la b(i)
+    # for i2 in range(longitud1):
+
+
+    return coefsil
