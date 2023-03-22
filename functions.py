@@ -1,5 +1,4 @@
 import csv
-    
 
 def read_data(filename):
     """ Lee el fichero csv y devuelve un diccionario con el formato que aparece a continuacion (un objeto).
@@ -7,36 +6,41 @@ def read_data(filename):
     siendo dato1 una clave que se ira incrementando. Si hay alguna muestra vacia, no debera aparecer en el fichero devuelto.
     Si el fichero tiene menos de 10 lineas con valor en todos los atributos se emitira un error de tipo ValueError. """
 
-    lector_csv = csv.reader(filename)
-    objetos = {}
+    with open(filename, newline='') as archivo:
+    # reader = csv.reader(csvfile)
+        lector_csv = csv.reader(archivo)
+        objetos = {}
+        i = 0
 
-    for i, linea in enumerate(lector_csv, start=1):
-        #     # Si la línea está vacía, la saltamos
-        if not any(linea):
-            continue
-        # Creamos un diccionario con los datos de la línea
-        objeto = {
-            'type': linea[0],
-            'fixed acidity': int(linea[1]),
-            'volatile acidity': int(linea[2]),
-            'citric acid': int(linea[3]),
-            'residual sugar': int(linea[4]),
-            'chlorides': int(linea[5]),
-            'free sulfur dioxide': int(linea[6]),
-            'total sulfur dioxide': int(linea[7]),
-            'density': int(linea[8]),
-            'PH': int(linea[9]),
-            'sulphates': int(linea[10]),
-            'alcohol': int(linea[11]),
-            'quality': int(linea[12])
-        }
-        objetos[f'dato{i}'] = objeto
+        for linea in lector_csv:
+            #     # Si la línea está vacía, la saltamos
+            if not any(linea):
+                continue
+            
+            # Creamos un diccionario con los datos de la línea
+            objeto = {
+                'type': linea[0],
+                'fixed acidity': linea[1],
+                'volatile acidity': linea[2],
+                'citric acid': linea[3],
+                'residual sugar': linea[4],
+                'chlorides': linea[5],
+                'free sulfur dioxide': linea[6],
+                'total sulfur dioxide': linea[7],
+                'density': linea[8],
+                'PH': linea[9],
+                'sulphates': linea[10],
+                'alcohol': linea[11],
+                'quality': linea[12]
+            }
+            objetos[f'dato{i}'] = objeto
+            i += 1
 
-    # Si la lista de objetos tiene menos de 10 elementos, lanzar una excepción
-    if len(objetos) < 10:
-        raise ValueError('El atributo tiene menos de 10 filas')
-    
-    return objetos
+        # Si la lista de objetos tiene menos de 10 elementos, lanzar una excepción
+        if len(objetos) < 10:
+            raise ValueError('El atributo tiene menos de 10 filas')
+        
+        return objetos
 
 
 
@@ -46,16 +50,18 @@ def split (diccionario):
       que tengan el valor "white" en el atributo "type" y el segundo es un diccionario con 
       los datos que tengan el valor "red" en este atributo. El atributo "type" se eliminara 
       de cada dato en estos diccionarios devueltos.  """
+    
     diccionariowhite ={}
     diccionariored = {}
+    i=0
     # Ahora recorremos un for para poner los datos en los diccionarios
-    for i, atributo in  diccionario.items():
+    for atributo in  diccionario.items():
         tipo = atributo.pop('type', None)
         if tipo == "white":
             diccionariowhite[i] == atributo
         elif tipo == "red":
             diccionariored[i] == atributo
-
+        i += 1
     return diccionariored, diccionariowhite
 
 
